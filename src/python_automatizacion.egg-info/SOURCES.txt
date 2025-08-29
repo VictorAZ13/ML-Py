@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+src/python_automatizacion/__init__.py
+src/python_automatizacion.egg-info/PKG-INFO
+src/python_automatizacion.egg-info/SOURCES.txt
+src/python_automatizacion.egg-info/dependency_links.txt
+src/python_automatizacion.egg-info/requires.txt
+src/python_automatizacion.egg-info/top_level.txt
+src/python_automatizacion/automatizacion/__init__.py
+src/python_automatizacion/automatizacion/limpieza.py
+src/python_automatizacion/datos/__init__.py
+src/python_automatizacion/datos/utilidades.py
+tests/test_basico.py

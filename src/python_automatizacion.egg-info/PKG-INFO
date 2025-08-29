@@ -1,3 +1,15 @@
+Metadata-Version: 2.4
+Name: python_automatizacion
+Version: 0.2.0
+Summary: Proyecto de automatización y datos en Python
+Author-email: Victor Flores <vf03062002@gmail.com>
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: openpyxl
+Requires-Dist: requests
+
 # Python para Automatización y Datos  
 *(Pruebas de algoritmos de ordenamiento de archivos y limpieza automatizada)*
 
