@@ -4,7 +4,7 @@ from python_automatizacion.automatizacion import limpieza
 print("Bienvenido al programa de automatización de datos.")
 print("Asegúrate de tener tus archivos en la carpeta 'data'.")
 print("Los archivos procesados se guardarán en la carpeta 'exports'.")
-print("Antes de empezar selecciona el archivo que deseas procesar:")
+print("Antes de empezar selecciona el archivo que deseas procesar de la carpeta 'data'.")
 nombre_archivo = utilidades.obtener_nombre_archivo()
 
 ruta_archivo = utilidades.obtener_ruta_archivo(nombre_archivo)
