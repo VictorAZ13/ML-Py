@@ -29,7 +29,7 @@ while True:
         "8. Salir y guardar el programa\n" 
         "Seleccione una opción (1-8): "))
         if opcion < 1 or opcion > 8:
-            print("Por favor, ingresa un número entre 1 y 7.")
+            print("Por favor, ingresa un número entre 1 y 8.")
             raise ValueError
         if opcion == 1:
             utilidades.limpiar_pantalla()
@@ -56,7 +56,7 @@ while True:
             print("Eliminación de filas con valores nulos completada.")
             utilidades.pausa()
         elif opcion == 6:
-            utilidades.limpia_pantalla()
+            utilidades.limpiar_pantalla()
             df = limpieza.eliminar_duplicados(df)
             print("Eliminación de duplicados completada.")
             utilidades.pausa()
