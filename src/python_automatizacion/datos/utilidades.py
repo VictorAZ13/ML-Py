@@ -1,6 +1,7 @@
 import pandas as pd
 import os 
 from os import system
+import math
 
 def pausa():
     system("pause")
@@ -9,6 +10,18 @@ def pausa():
 def limpiar_pantalla():
     system("cls")
 
+def obtener_muestra(df):
+    N = len(df)
+    Z = 1.96  # Z-score para un nivel de confianza del 95%
+    p = 0.5  # Proporción estimada
+    E = 0.05  # Margen de error del 5%
+    n = (Z**2 * p * (1 - p)) / (E**2) #Tamaño de muestra
+    n_ajustado = n / (1 + ((n - 1) / N))  # Ajuste para población finita
+    n_ajustado = math.ceil(n_ajustado)  # Redondear
+    n_ajustado = min(n_ajustado, N)  # No puede ser mayor que N
+
+    return n_ajustado
+
 def obtener_nombre_archivo():
     print("Lista de archivos guardados: ")
     print(os.listdir("data"))
@@ -16,7 +29,7 @@ def obtener_nombre_archivo():
         try:
             nombre_archivo = str(input("Nombre del archivo a procesar (con extensión .csv o .xlsx): "))
             if nombre_archivo.endswith(('.csv','.xlsx')):
-                if nombre_archivo in os.listdir("data"):
+                if nombre_archivo in os.listdir("data/datasets"):
                     break
                 else:
                     print("El archivo no existe en el directorio 'data'. Inténtalo de nuevo.")
@@ -32,7 +45,7 @@ def obtener_ruta_archivo(nombre_archivo):
     print("Obteniendo ruta del archivo...")
     system("pause")
     # Obtener el nombre del archivo a partir de la ruta completa
-    ruta_archivo = os.path.join("data",nombre_archivo)
+    ruta_archivo = os.path.join("data/datasets",nombre_archivo)
     return ruta_archivo
  
 
@@ -46,39 +59,42 @@ def leer_archivo(input_file):
     system("pause")
     return df
 
-def guardar_archivo(df):
-    output_file = os.path.join("exports",input("Nombre del archivo de salida (con extensión .csv o .xlsx): "))
-    while True:
-        try:
-            if output_file.endswith(('.csv','.xlsx')):
-                break
+def guardar_archivo(df,nombre = None,ruta_guardado = None):
+    if nombre is None:
+        output_file = os.path.join("exports/",input("Nombre del archivo de salida (con extensión .csv o .xlsx): "))
+        while True:
+            try:
+                if output_file.endswith(('.csv','.xlsx')):
+                    break
+                else:
+                    output_file = os.path.join("exports/batch_ejecutado",input("Por favor, ingresa un archivo con extensión .csv o .xlsx: "))
+            except Exception as e:
+                print(f"Error al ingresar el nombre del archivo: {e}")
+        
+        if output_file.endswith('.xlsx'):
+            #Guardar el DataFrame en un nuevo archivo Excel
+            df.to_excel(output_file, index=False)
+        elif output_file.endswith('.csv'):
+            #Guardar el DataFrame en un nuevo archivo CSV
+            df.to_csv(output_file, index=False)
+        elif os.path.exists(output_file):
+            opcion = input("El archivo ya existe. ¿Deseas sobrescribirlo? (s/n): ")
+            if opcion.lower() == 's':
+                if output_file.endswith('.xlsx'):
+                    df.to_excel(output_file, index=False)
+                elif output_file.endswith('.csv'):
+                    df.to_csv(output_file, index=False)
+                print(f"Archivo sobrescrito como {output_file}")
+                system("pause")
+                return output_file
             else:
-                output_file = os.path.join("exports",input("Por favor, ingresa un archivo con extensión .csv o .xlsx: "))
-        except Exception as e:
-            print(f"Error al ingresar el nombre del archivo: {e}")
-    
-    if output_file.endswith('.xlsx'):
-        #Guardar el DataFrame en un nuevo archivo Excel
-        df.to_excel(output_file, index=False)
-    elif output_file.endswith('.csv'):
-        #Guardar el DataFrame en un nuevo archivo CSV
-        df.to_csv(output_file, index=False)
-    elif os.path.exists(output_file):
-        opcion = input("El archivo ya existe. ¿Deseas sobrescribirlo? (s/n): ")
-        if opcion.lower() == 's':
-            if output_file.endswith('.xlsx'):
-                df.to_excel(output_file, index=False)
-            elif output_file.endswith('.csv'):
-                df.to_csv(output_file, index=False)
-            print(f"Archivo sobrescrito como {output_file}")
-            system("pause")
-            return output_file
-        else:
-            print("No se guardó el archivo.")
-            system("pause")
-            return None
-    
-    print(f"Archivo guardado como {output_file}")
+                print("No se guardó el archivo.")
+                system("pause")
+                return None
+        
+        print(f"Archivo guardado como {output_file}")
 
-    return output_file
-
+        return output_file
+    else:
+        output_file = os.path.join(ruta_guardado,nombre)
+        df.to_excel(output_file, index = False)

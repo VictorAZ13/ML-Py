@@ -7,7 +7,10 @@ src/python_automatizacion.egg-info/dependency_links.txt
 src/python_automatizacion.egg-info/requires.txt
 src/python_automatizacion.egg-info/top_level.txt
 src/python_automatizacion/automatizacion/__init__.py
-src/python_automatizacion/automatizacion/limpieza.py
+src/python_automatizacion/automatizacion/primer_pipeline.py
 src/python_automatizacion/datos/__init__.py
+src/python_automatizacion/datos/graficos.py
+src/python_automatizacion/datos/limpieza.py
 src/python_automatizacion/datos/utilidades.py
+src/python_automatizacion/datos/vistas.py
 tests/test_basico.py

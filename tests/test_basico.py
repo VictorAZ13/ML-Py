@@ -3,6 +3,7 @@ import numpy as np
 import os
 from os import system
 import matplotlib.pyplot as plt
+import math
 
 df = pd.DataFrame({
     "Nombre": ['Ana', 'Luis', 'Carlos', 'Ana'],
@@ -13,6 +14,7 @@ df = pd.DataFrame({
 df = pd.concat([df,df.iloc[[2]]], ignore_index=True)
 
 df.to_csv("data/test_data.csv", index=False)
+df = pd.read_excel("data/BD_Ingresantes Pago ok.xlsx")
 
 print("Archivo de prueba 'test_data.csv' creado en la carpeta 'data'.")
 
@@ -64,33 +66,47 @@ if 'Ciudad' in df.columns:
 system("cls")
 
 print("Probando groupby():")
-agrupado = df.groupby("Ciudad").agg({
-      "Edad": ["mean", "min", "max"],
-      "Nombre": "count"
-}).reset_index()
-print("DataFrame original:")
-print(df)
-print("Estadísticas agrupadas por Ciudad:")
-print(agrupado)
+#agrupado = df.groupby("Ciudad").agg({
+#      "Edad": ["mean", "min", "max"],
+#      "Nombre": "count"
+#}).reset_index()
+#print("DataFrame original:")
+#print(df)
+#print("Estadísticas agrupadas por Ciudad:")
+#print(agrupado)
 
 system("pause")
 system("cls")
 
-print("Probando gráficos:")
-print("Gráfico de barras del conteo de ciudades:")
-conteo = df['Ciudad'].value_counts()
-conteo.plot(kind='bar', color='skyblue')
-plt.title('Conteo de Ciudades')
-plt.xlabel('Ciudad')
-plt.ylabel('Número de ocurrencias')
-plt.show()
+#print("Probando gráficos:")
+#print("Gráfico de barras del conteo de ciudades:")
+#conteo = df['Ciudad'].value_counts()
+#conteo.plot(kind='bar', color='skyblue')
+#plt.title('Conteo de Ciudades')
+#plt.xlabel('Ciudad')
+#plt.ylabel('Número de ocurrencias')
+#plt.show()
 
-print("Histograma de Edades:")
-df['Edad'].dropna().plot(kind='hist', bins=10, color='lightgreen')
-plt.title("Frecuencia de Edades")
-plt.xlabel('Edad')
-plt.ylabel('Frecuencia')
-plt.show()
+#print("Histograma de Edades:")
+#df['Edad'].dropna().plot(kind='hist', bins=10, color='lightgreen')
+#plt.title("Frecuencia de Edades")
+#plt.xlabel('Edad')
+#plt.ylabel('Frecuencia')
+#plt.show()
+#system("pause")
+#system("cls")
+
+
+
+print("Calcular muestras para validación de datos:")
+N = len(df)
+Z = 1.96  # Z-score para un nivel de confianza del 95%
+p = 0.5  # Proporción estimada
+E = 0.05  # Margen de error del 5%
+n = (Z**2 * p * (1 - p)) / (E**2) #Tamaño de muestra
+n_ajustado = n / (1 + ((n - 1) / N)) #Tamaño de muestra ajustado para poblaciones finitas
+n_ajustado = math.ceil(n_ajustado)  # Redondear
+print(f"Tamaño de la muestra necesario para una población de {N} con un margen de error del {E*100}%: {n_ajustado}")
+
 system("pause")
-system("cls")
 
