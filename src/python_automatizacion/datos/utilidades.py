@@ -59,6 +59,37 @@ def leer_archivo(input_file):
     system("pause")
     return df
 
+def validar_dataset(df, columnas_obligatorias: dict):
+    """Esto es solo para validar"""
+    
+    errores = []
+    
+    for col, tipo in columnas_obligatorias.items():
+        # Verificar que exista la columna
+        if col not in df.columns:
+            errores.append(f"X Falta la columna obligatoria: {col}")
+            continue
+        
+        # Verificar tipo de dato
+        esperado = pd.Series(dtype=tipo).dtype
+        if not pd.api.types.is_dtype_equal(df[col].dtype, esperado):
+            errores.append(
+                f"X Columna {col} tiene dtype {df[col].dtype}, "
+                f"se esperaba {esperado}"
+            )
+        else:
+            print(f"✅ Columna {col} cumple con el tipo {esperado}")
+    
+    # Resultado final
+    if errores:
+        print("Errores encontrados en validación:")
+        for e in errores:
+            print(e)
+        raise ValueError("Validación de dataset fallida.")
+    else:
+        print("Dataset válido, todas las columnas cumplen.")
+
+
 def guardar_archivo(df,nombre = None,ruta_guardado = None):
     if nombre is None:
         output_file = os.path.join("exports/",input("Nombre del archivo de salida (con extensión .csv o .xlsx): "))
