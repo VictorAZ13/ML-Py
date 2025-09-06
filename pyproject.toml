@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python_automatizacion"
-version = "1.0.0"
+version = "1.2.0"
 description = "Proyecto de automatización y datos en Python"
 authors = [
   { name="Victor Flores", email="vf03062002@gmail.com" }

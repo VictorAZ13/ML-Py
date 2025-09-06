@@ -1,6 +1,8 @@
 # Archivos del sistema
 *.DS_Store
 Thumbs.db
+.vscode/
+.idea/
 
 # Archivos temporales de Python
 __pycache__/
@@ -8,6 +10,9 @@ __pycache__/
 *.pyo
 *.pyd
 *.pdb
+.coverage
+htmlcov/
+.pytest_cache/
 
 # Entornos virtuales
 .env
@@ -26,6 +31,8 @@ venv/
 !/data/.gitkeep   # Mantener la carpeta vacía en el repo
 /exports/*
 !/exports/.gitkeep
+/reports/*
+!/reports/.gitkeep
 
 # Archivos de Jupyter (por si acaso)
 .ipynb_checkpoints/
